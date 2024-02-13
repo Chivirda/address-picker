@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Filter</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>Адреса</h1>
+    <label for="city">Выберите населенный пункт:</label>
+    <select id="city" name="city" onchange="loadStreets()">
+        <!-- Динамический список населенных пунктов загружается через AJAX -->
+    </select>
+
+    <label for="street">Выберите улицу:</label>
+    <select id="street" name="street">
+        <!-- Динамический список улиц загружается через AJAX -->
+    </select>
+
+    <button onclick="filterAddresses()">Применить фильтр</button>
+
+    <div id="addresses-container">
+        <!-- Вывод адресов происходит здесь -->
+    </div>
+
+</body>
+</html>
