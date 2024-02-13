@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Address Filter</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <h1>Адреса</h1>
-    <label for="city">Выберите населенный пункт:</label>
-    <select id="city" name="city" onchange="loadStreets()">
+    <h1>Выбран регион <span id="region"></span></h1>
+
+    <label for="district">Выберите район:</label>
+    <input list="district-list" id="district" name="district">
+    <datalist id="district-list">
+
+    </datalist>
+
+    <label for="settlement">Выберите населенный пункт:</label>
+    <input list="settlement-list" id="settlement" name="settlement">
+    <datalist id="settlement-list">
         <!-- Динамический список населенных пунктов загружается через AJAX -->
-    </select>
+    </datalist>
 
     <label for="street">Выберите улицу:</label>
-    <select id="street" name="street">
+    <input list="street-list" id="street" name="street">
+    <datalist id="street-list">
         <!-- Динамический список улиц загружается через AJAX -->
-    </select>
+    </datalist>
 
     <button onclick="filterAddresses()">Применить фильтр</button>
 
