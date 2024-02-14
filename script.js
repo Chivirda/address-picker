@@ -47,9 +47,9 @@ async function loadSettlements() {
 }
 
 async function loadStreets() {
-    const selectedSettlement = document.getElementById('settlement').value;
+    const settlement = document.getElementById('settlement').value;
     try {
-        const data = await request('ajax.php', { action: 'get_streets', settlement: selectedSettlement });
+        const data = await request('ajax.php', { action: 'get_streets', settlement });
         populateDropdown('street-list', Object.values(data));
     } catch (error) {
         console.error('Error loading streets:', error);
@@ -67,17 +67,31 @@ function populateDropdown(elementId, data) {
     });
 }
 
-function displayAddresses(data) {
+async function displayAddresses() {
     const container = document.getElementById('addresses-container');
     container.innerHTML = '';
-    data.forEach(function (value) {
-        const p = document.createElement('p');
-        p.textContent = value;
-        container.appendChild(p);
+    const district = document.getElementById('district').value;
+    const settlement = document.getElementById('settlement').value;
+    const street = document.getElementById('street').value;
+    const data = await request('ajax.php', { action: 'print_addresses', district, settlement, street });
+
+    data.forEach((address) => {
+        const paragraph = document.createElement('p');
+        paragraph.textContent = address;
+        container.appendChild(paragraph);
     });
 }
 
-// Event listeners for dropdown changes
+function resetForm() {
+    document.getElementById('district').value = '';
+    document.getElementById('settlement').value = '';
+    document.getElementById('street').value = '';
+    document.getElementById('addresses-container').innerHTML = '';
+}
+
+// События работы с формой
 document.getElementById('district').addEventListener('change', loadSettlements);
 document.getElementById('settlement').addEventListener('change', loadStreets);
-document.querySelector('button').addEventListener('click', filterAddresses);
+// События работы с кнопками
+document.getElementById('button').addEventListener('click', displayAddresses);
+document.getElementById('reset').addEventListener('click', resetForm);

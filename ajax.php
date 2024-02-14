@@ -5,10 +5,6 @@ const DISTRICT_INDEX = 3;
 const CITY_INDEX = 5;
 const STREET_INDEX = 6;
 
-// echo '<pre>';
-// print_r($addresses);
-// echo '</pre>';
-// die();
 
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
@@ -26,6 +22,12 @@ if (isset($_POST['action'])) {
         case 'get_streets':
             $settlement = $_POST['settlement'];
             echo json_encode(getStreets($settlement));
+            break;
+        case 'print_addresses':
+            $district = $_POST['district'];
+            $settlement = $_POST['settlement'];
+            $street = $_POST['street'];
+            echo json_encode(getAddresses($district, $settlement, $street));
             break;
     }
 }
@@ -51,7 +53,6 @@ function readAddressesFromCSV($filename)
 function getColumnUniqueValues(int $columnIndex): array
 {
     $addresses = readAddressesFromCSV('addreses.csv');
-
     $values = [];
 
     foreach ($addresses as $address) {
@@ -81,7 +82,6 @@ function getSettlements(): array
 function getStreets(string $city): array
 {
     $addresses = readAddressesFromCSV('addreses.csv');
-
     $values = [];
 
     foreach ($addresses as $address) {
@@ -91,4 +91,27 @@ function getStreets(string $city): array
     }
 
     return array_unique($values);
+}
+
+function getAddresses(string $district, string $settlement = '', string $street = ''): array
+{
+    $addresses = readAddressesFromCSV('addreses.csv');
+    $filteredAddresses = [];
+
+    foreach ($addresses as $address) {
+        if (count($address) > 1) { // Skip the header row if it exists
+            // Filter by district
+            if ($address[DISTRICT_INDEX] === $district) {
+                // Optionally filter by settlement
+                if ($settlement === '' || $address[CITY_INDEX] === $settlement) {
+                    // Optionally filter by street
+                    if ($street === '' || $address[STREET_INDEX] === $street) {
+                        $filteredAddresses[] = $address;
+                    }
+                }
+            }
+        }
+    }
+
+    return $filteredAddresses;
 }

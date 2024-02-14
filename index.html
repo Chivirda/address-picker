@@ -4,33 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Address Filter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script defer src="script.js"></script>
 </head>
 <body>
-    <h1>Выбран регион <span id="region"></span></h1>
-
-    <label for="district">Выберите район:</label>
-    <input list="district-list" id="district" name="district">
-    <datalist id="district-list">
-
-    </datalist>
-
-    <label for="settlement">Выберите населенный пункт:</label>
-    <input list="settlement-list" id="settlement" name="settlement">
-    <datalist id="settlement-list">
-        <!-- Динамический список населенных пунктов загружается через AJAX -->
-    </datalist>
-
-    <label for="street">Выберите улицу:</label>
-    <input list="street-list" id="street" name="street">
-    <datalist id="street-list">
-        <!-- Динамический список улиц загружается через AJAX -->
-    </datalist>
-
-    <button onclick="filterAddresses()">Применить фильтр</button>
-
-    <div id="addresses-container">
-        <!-- Вывод адресов происходит здесь -->
+    <div class="container">
+        <form onsubmit="return false">
+            <h1 class="mb-3">Выбран регион <span id="region" class="text-primary"></span></h1>
+            <div class="mb-3">
+                <label for="district" class="form-label">Выберите район:</label>
+                <input class="form-control" list="district-list" id="district" name="district">
+                <datalist id="district-list">
+                </datalist>
+            </div>
+            <div class="mb-3">
+                <label for="settlement" class="form-label">Выберите населенный пункт:</label>
+                <input class="form-control" list="settlement-list" id="settlement" name="settlement">
+                <datalist id="settlement-list">
+                    <!-- Динамический список населенных пунктов загружается через AJAX -->
+                </datalist>
+            </div>
+            <div class="mb-3">
+                <label for="street" class="form-label">Выберите улицу:</label>
+                <input class="form-control" list="street-list" id="street" name="street">
+                <datalist id="street-list">
+                    <!-- Динамический список улиц загружается через AJAX -->
+                </datalist>
+            </div>
+            <button type="submit" id="button" class="btn btn-primary">Применить фильтр</button>
+            <button id="reset" class="btn btn-danger">Сбросить форму</button>
+            <div id="addresses-container" class="mt-3">
+                <!-- Вывод адресов происходит здесь -->
+            </div>
+        </form>
     </div>
 
 </body>
