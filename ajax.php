@@ -2,7 +2,7 @@
 
 const REGION_INDEX = 2;
 const DISTRICT_INDEX = 3;
-const CITY_INDEX = 5;
+const SETTLEMENT_INDEX = 5;
 const STREET_INDEX = 6;
 $addresses = readAddressesFromCSV('addreses.csv');
 
@@ -57,7 +57,7 @@ function getColumnUniqueValues(int $columnIndex): array
     $values = [];
 
     foreach ($addresses as $address) {
-        if (count($address) > 1) { // Skip the header row if it exists
+        if (count($address) > 1) {
             $values[] = $address[$columnIndex];
         }
     }
@@ -77,7 +77,7 @@ function getDistrict(): array
 
 function getSettlements(): array
 {
-    return getColumnUniqueValues(CITY_INDEX);
+    return getColumnUniqueValues(SETTLEMENT_INDEX);
 }
 
 function getStreets(string $city): array
@@ -86,7 +86,7 @@ function getStreets(string $city): array
     $values = [];
 
     foreach ($addresses as $address) {
-        if (count($address) > 1 && $address[CITY_INDEX] === $city) {
+        if (count($address) > 1 && $address[SETTLEMENT_INDEX] === $city) {
             $values[] = $address[STREET_INDEX];
         }
     }
@@ -101,12 +101,12 @@ function getAddresses(string $district, string $settlement = '', string $street 
     $filteredAddresses = [];
 
     foreach ($addresses as $address) {
-        if (count($address) > 1) { // Skip the header row if it exists
-            // Filter by district
+        if (count($address) > 1) { // Пропускаем строку с заголовком
+            // Фильтр по району
             if ($address[DISTRICT_INDEX] === $district) {
-                // Optionally filter by settlement
-                if ($settlement === '' || $address[CITY_INDEX] === $settlement) {
-                    // Optionally filter by street
+                // Фильтр по названию населённого пункта
+                if ($settlement === '' || $address[SETTLEMENT_INDEX] === $settlement) {
+                    // Фильтр по названию улицы
                     if ($street === '' || $address[STREET_INDEX] === $street) {
                         $filteredAddresses[] = $address;
                     }
