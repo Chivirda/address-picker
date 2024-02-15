@@ -4,6 +4,7 @@ const REGION_INDEX = 2;
 const DISTRICT_INDEX = 3;
 const CITY_INDEX = 5;
 const STREET_INDEX = 6;
+$addresses = readAddressesFromCSV('addreses.csv');
 
 
 if (isset($_POST['action'])) {
@@ -52,7 +53,7 @@ function readAddressesFromCSV($filename)
 
 function getColumnUniqueValues(int $columnIndex): array
 {
-    $addresses = readAddressesFromCSV('addreses.csv');
+    global $addresses;
     $values = [];
 
     foreach ($addresses as $address) {
@@ -81,7 +82,7 @@ function getSettlements(): array
 
 function getStreets(string $city): array
 {
-    $addresses = readAddressesFromCSV('addreses.csv');
+    global $addresses;
     $values = [];
 
     foreach ($addresses as $address) {
@@ -93,9 +94,10 @@ function getStreets(string $city): array
     return array_unique($values);
 }
 
+
 function getAddresses(string $district, string $settlement = '', string $street = ''): array
 {
-    $addresses = readAddressesFromCSV('addreses.csv');
+    global $addresses;
     $filteredAddresses = [];
 
     foreach ($addresses as $address) {
