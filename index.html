@@ -13,23 +13,21 @@
             <h1 class="mb-3">Выбран регион <span id="region" class="text-primary"></span></h1>
             <div class="mb-3">
                 <label for="district" class="form-label">Выберите район:</label>
-                <input class="form-control" list="district-list" id="district" name="district">
-                <datalist id="district-list">
-                </datalist>
+                <select class="form-control" id="district" name="district">
+                    <!-- Динамический список районов загружается через AJAX -->
+                </select>
             </div>
             <div class="mb-3">
                 <label for="settlement" class="form-label">Выберите населенный пункт:</label>
-                <input class="form-control" list="settlement-list" id="settlement" name="settlement">
-                <datalist id="settlement-list">
+                <select class="form-control" id="settlement" name="settlement">
                     <!-- Динамический список населенных пунктов загружается через AJAX -->
-                </datalist>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="street" class="form-label">Выберите улицу:</label>
-                <input class="form-control" list="street-list" id="street" name="street">
-                <datalist id="street-list">
+                <select class="form-control" id="street" name="street">
                     <!-- Динамический список улиц загружается через AJAX -->
-                </datalist>
+                </select>
             </div>
             <button type="submit" id="button" class="btn btn-primary">Применить фильтр</button>
             <button id="reset" class="btn btn-danger">Сбросить форму</button>

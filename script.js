@@ -22,7 +22,6 @@ async function loadRegion() {
         const data = await request('ajax.php', { action: 'get_region' });
         const region = document.querySelector('#region');
         region.innerHTML = data
-        await loadDistricts();
     } catch (error) {
         console.error('Error loading region:', error);
     }
@@ -31,7 +30,7 @@ async function loadRegion() {
 async function loadDistricts() {
     try {
         const data = await request('ajax.php', { action: 'get_districts' });
-        populateDropdown('district-list', data);
+        populateDropdown('district', data);
     } catch (error) {
         console.error('Error loading districts:', error);
     }
@@ -40,7 +39,8 @@ async function loadDistricts() {
 async function loadSettlements() {
     try {
         const data = await request('ajax.php', { action: 'get_settlements' });
-        populateDropdown('settlement-list', Object.values(data));
+        populateDropdown('settlement', Object.values(data));
+        addEmpty('settlement');
     } catch (error) {
         console.error('Error loading settlements:', error);
     }
@@ -50,7 +50,8 @@ async function loadStreets() {
     const settlement = document.getElementById('settlement').value;
     try {
         const data = await request('ajax.php', { action: 'get_streets', settlement });
-        populateDropdown('street-list', Object.values(data));
+        populateDropdown('street', Object.values(data));
+        addEmpty('street');
     } catch (error) {
         console.error('Error loading streets:', error);
     }
@@ -82,6 +83,12 @@ async function displayAddresses() {
     });
 }
 
+function addEmpty(elementId) {
+    const dropdown = document.getElementById(elementId);
+    const newOption = new Option('ВЫБРАТЬ ВСЁ', '');
+    dropdown.add(newOption);
+}
+
 function resetForm() {
     document.getElementById('district').value = '';
     document.getElementById('settlement').value = '';
@@ -90,7 +97,8 @@ function resetForm() {
 }
 
 // События работы с формой
-document.getElementById('district').addEventListener('change', loadSettlements);
+document.getElementById('district').addEventListener('focus', loadDistricts);
+document.getElementById('settlement').addEventListener('focus', loadSettlements);
 document.getElementById('settlement').addEventListener('change', loadStreets);
 // События работы с кнопками
 document.getElementById('button').addEventListener('click', displayAddresses);
