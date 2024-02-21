@@ -82,6 +82,11 @@ async function displayAddresses() {
     });
 }
 
+function resetFormField(event) {
+    const clickedButton = document.getElementById(event.target.id);
+    clickedButton.previousElementSibling.value = '';
+}
+
 function resetForm() {
     document.getElementById('district').value = '';
     document.getElementById('settlement').value = '';
@@ -95,3 +100,4 @@ document.getElementById('settlement').addEventListener('change', loadStreets);
 // События работы с кнопками
 document.getElementById('button').addEventListener('click', displayAddresses);
 document.getElementById('reset').addEventListener('click', resetForm);
+

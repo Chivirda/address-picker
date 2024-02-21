@@ -11,24 +11,25 @@
     <div class="container">
         <form onsubmit="return false">
             <h1 class="mb-3">Выбран регион <span id="region" class="text-primary"></span></h1>
-            <div class="mb-3">
-                <label for="district" class="form-label">Выберите район:</label>
+            <label for="district" class="form-label">Выберите район:</label>
+            <div class="mb-3 input-group">
                 <input class="form-control" list="district-list" id="district" name="district">
+                <button type="button" id="district-list-clear" class="btn btn-outline-secondary" onclick="resetFormField(event)">Очистить</button>
                 <datalist id="district-list">
                 </datalist>
             </div>
-            <div class="mb-3">
-                <label for="settlement" class="form-label">Выберите населенный пункт:</label>
+            <label for="settlement" class="form-label">Выберите населенный пункт:</label>
+            <div class="mb-3 input-group">
                 <input class="form-control" list="settlement-list" id="settlement" name="settlement">
+                <button type="button" id="settlement-list-clear" class="btn btn-outline-secondary" onclick="resetFormField(event)">Очистить</button>
                 <datalist id="settlement-list">
-                    <!-- Динамический список населенных пунктов загружается через AJAX -->
                 </datalist>
             </div>
-            <div class="mb-3">
-                <label for="street" class="form-label">Выберите улицу:</label>
+            <label for="street" class="form-label">Выберите улицу:</label>
+            <div class="mb-3 input-group">
                 <input class="form-control" list="street-list" id="street" name="street">
+                <button type="button" id="street-list-clear" class="btn btn-outline-secondary" onclick="resetFormField(event)">Очистить</button>
                 <datalist id="street-list">
-                    <!-- Динамический список улиц загружается через AJAX -->
                 </datalist>
             </div>
             <button type="submit" id="button" class="btn btn-primary">Применить фильтр</button>
